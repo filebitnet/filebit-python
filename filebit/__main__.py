@@ -33,7 +33,7 @@ def main_upload():
     else:
         workers = 2
     u.max_workers = workers
-    u.start()
+    u.start(retries=10)  # returns admin code
     link = u.get_link()
     print(link)
 
@@ -41,7 +41,7 @@ def main_upload():
 def main_download():
     with tqdm(unit_scale=True, unit_divisor=1024, unit="B", colour='red') as bar:
         d = download.Download(o['<url>'], o['-l'], bar)
-        d.start()
+        d.prepare()
         if not o['-o']:
             path = Path(os.getcwd())
         else:
@@ -61,10 +61,14 @@ def main_download():
             workers = 2
             if not o['-l']:
                 workers = 1
-        d.start_download(path, o['--overwrite'], workers)
-    print("File download successful")
-    print("Stored at:")
-    print(d.path)
+        d.start(path, o['--overwrite'], workers)
+    success = d.validate()
+    if success:
+        print("File download successful")
+        print("Stored at:")
+        print(d.path)
+    else:
+        print("Download failed.")
 
 
 def main():
