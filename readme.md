@@ -16,8 +16,13 @@ print(parts) # ('qknI9LX', 'Ac1A3HJ13aBRn66XHnkktQNlOK1dxItiRqnkAovV82uU')
 ## Get Upload Server
 ```python
 from filebit import api
-server_response = api.call('storage/server.json')
-print(server_response)
+# get a list of usable servers
+servers = api.get_upload_servers()
+print(servers)
+
+# pick one randomly
+random_server = api.get_upload_server()
+print(random_server)
 ```
 
 ## Get File Informations
