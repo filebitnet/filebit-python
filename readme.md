@@ -27,7 +27,7 @@ print(random_server)
 
 ## Get File Informations
 ```python
-from filebit import api, crypto
+from filebit import api
 info = api.get_file_info("https://filebit.net/f/teBKKQ6#Abts8F6i70LmwgoeUrDe_8RWMmuXBtQj5C_BguRzJL-p")
 filename = info['filename']
 filesize = info['filesize']
@@ -64,7 +64,8 @@ for url in urls:
 ```python
 from filebit import upload
 u = upload.Upload(path)
-u.start() # returns admin code
+u.max_workers = 4 # parallel upload workers
+u.start(retries=10) # returns admin code
 print(u.get_link())
 ```
 
