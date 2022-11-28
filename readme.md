@@ -28,13 +28,9 @@ print(random_server)
 ## Get File Informations
 ```python
 from filebit import api, crypto
-response = api.call('storage/bucket/info.json', {"file":"teBKKQ6"})
-encrypted_name = response['filename'];
-key = 'Abts8F6i70LmwgoeUrDe_8RWMmuXBtQj5C_BguRzJL-p';
-decryptor = crypto.FilebitCipher(key).decryptor()
-filename = crypto.unpad(decryptor.update(crypto.b64dec(encrypted_name)) + decryptor.finalize()).decode("utf-8")
-filesize = response['filesize']
-
+info = api.get_file_info("https://filebit.net/f/teBKKQ6#Abts8F6i70LmwgoeUrDe_8RWMmuXBtQj5C_BguRzJL-p")
+filename = info['filename']
+filesize = info['filesize']
 print(f'{filename} Filesize: {filesize}')
 #Example.zip Filesize: 104857600
 ```
