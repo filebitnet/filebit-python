@@ -1,6 +1,6 @@
 # Installation
 ```
-pip install -U .
+pip install filebit
 ```
 
 ## Check Filebit URL & Get Parts
